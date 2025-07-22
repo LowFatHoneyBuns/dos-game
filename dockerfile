@@ -12,7 +12,7 @@ ENV XKB_DEFAULT_RULES=base
 #Install dependencies
 RUN apt-get update && \
         echo "tzdata tzdata/Areas select America" > ~/tx.txt && \
-        echo "tzdata tzdata/Zones/America select New York" >> ~/tx.txt && \
+        echo "tzdata tzdata/Zones/America select Denver" >> ~/tx.txt && \
         debconf-set-selections ~/tx.txt && \
         apt-get install -y unzip gnupg apt-transport-https wget software-properties-common novnc websockify libxv1 libglu1-mesa xauth x11-utils xorg tightvncserver libegl1-mesa xauth x11-xkb-utils software-properties-common bzip2 gstreamer1.0-plugins-good gstreamer1.0-pulseaudio gstreamer1.0-tools libglu1-mesa libgtk2.0-0 libncursesw5 libopenal1 libsdl-image1.2 libsdl-ttf2.0-0 libsdl1.2debian libsndfile1 nginx pulseaudio supervisor ucspi-tcp wget build-essential ccache dosbox
 		
@@ -25,6 +25,7 @@ COPY nginx.conf /etc/nginx/
 COPY webaudio.js /usr/share/novnc/core/
 COPY dosbox.conf /root/.dosbox/dosbox.conf
 COPY xstartup /root/.vnc/xstartup
+RUN chmod +x /root/.vnc/xstartup
 
 #Inject code for audio in the NoVNC client
 RUN sed -i "/import RFB/a \
@@ -46,8 +47,9 @@ RUN sed -i "/import RFB/a \
 RUN echo $PASSWORD | vncpasswd -f > ~/.vnc/passwd && \
   chmod 0600 ~/.vnc/passwd
 				
-COPY keen /dos/keen
-COPY doom /dos/doom
+# COPY keen /dos/keen
+#COPY doom /dos/doom
+COPY homm /dos
 
 EXPOSE 80
 

@@ -1,3 +1,5 @@
 #!/bin/sh
 # Command to start DOSBox
-dosbox -conf ~/.dosbox/dosbox.conf -c "MOUNT C: /dos" -c 'C:' &
+# dosbox -conf ~/.dosbox/dosbox.conf -c "MOUNT C: /dos" -c 'C:' &
+dosbox -conf /dos/dosboxhomm2.conf -conf /dos/dosboxhomm2_single.conf -noconsole -c exit &
+# dosbox -conf /dos/dosboxhomm2.conf  &
